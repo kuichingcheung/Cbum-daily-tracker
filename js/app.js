@@ -337,7 +337,7 @@ function renderWindow(windowDays) {
     <div class="stat-row">
       <strong>全日</strong>
       <span class="hit ${hitClass(stats.hits.overall, stats.completeCount)}">${stats.hits.overall}/${stats.completeCount}</span>
-      <span class="avg">四項一齊達標</span>
+      <span class="avg">至少三項達標</span>
     </div>
     <div class="train-line">
       <strong>操咗 ${stats.trainingCount} 日</strong>

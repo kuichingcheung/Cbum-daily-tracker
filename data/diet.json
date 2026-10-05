@@ -1,0 +1,53 @@
+{
+  "rules": {
+    "kcal": "intake between 90% and 110% of target",
+    "protein": "intake >= target",
+    "carbs": "intake >= 90% of target",
+    "fat": "intake <= 110% of target"
+  },
+  "days": [
+    {
+      "date": "2026-10-03",
+      "complete": true,
+      "target": {"kcal": 2600, "protein": 140, "carbs": 340, "fat": 72},
+      "intake": {"kcal": 2537, "protein": 154.5, "carbs": 265, "fat": 98},
+      "meals": [
+        {"time": "08:22", "name": "早餐", "items": "燕麥 50g、牛奶 200ml、合桃 15g、bagel、牛油、鹽昆布", "kcal": 701, "protein": 23, "carbs": 80, "fat": 34},
+        {"time": "16:00", "name": "午餐", "items": "炸雞 3 塊、白飯 200g", "kcal": 1010, "protein": 65, "carbs": 82, "fat": 45},
+        {"time": "16:19", "name": "小食", "items": "Quest 蛋白奶昔 1 支", "kcal": 170, "protein": 30, "carbs": 4, "fat": 3.5},
+        {"time": "19:27", "name": "小食", "items": "Bagel 1 個", "kcal": 181, "protein": 7.5, "carbs": 32.6, "fat": 3.9},
+        {"time": "20:46", "name": "晚餐", "items": "毛豆麵 56g、小白菜 40g", "kcal": 205, "protein": 24.6, "carbs": 21.9, "fat": 3},
+        {"time": "23:51", "name": "宵夜", "items": "芝麻糯米糍 1.5 粒", "kcal": 270, "protein": 4.5, "carbs": 45, "fat": 9}
+      ],
+      "note": "熱量接近目標，蛋白質達標；脂肪超標、碳水不足（炸雞同牛油）。"
+    },
+    {
+      "date": "2026-10-04",
+      "complete": true,
+      "target": {"kcal": 2850, "protein": 140, "carbs": 400, "fat": 72},
+      "intake": {"kcal": 2591, "protein": 155.6, "carbs": 297, "fat": 83.5},
+      "meals": [
+        {"time": "10:53", "name": "早餐", "items": "烚蛋 2 隻", "kcal": 140, "protein": 12, "carbs": 1, "fat": 10},
+        {"time": "11:56", "name": "午餐", "items": "壽司 7 件（三文魚、蝦、油甘魚、雞胸）", "kcal": 430, "protein": 26, "carbs": 52, "fat": 12},
+        {"time": "12:16", "name": "午餐加單", "items": "薯條 4 條、鵝肝壽司、蟹籽福袋 2 件、軍艦 3 件、燒三文魚 2 件", "kcal": 860, "protein": 28, "carbs": 106, "fat": 36},
+        {"time": "17:49", "name": "小食", "items": "果蓉 1 包、米餅 6 塊", "kcal": 240, "protein": 5, "carbs": 52, "fat": 2},
+        {"time": "20:04", "name": "晚餐", "items": "毛豆麵、蜆肉、雞胸 150g、半份粟米蟹柳青瓜沙律", "kcal": 625, "protein": 78, "carbs": 36, "fat": 16},
+        {"time": "21:46", "name": "宵夜", "items": "芝麻沙沙蛋捲 1 條、紅米飯 170g", "kcal": 296, "protein": 6.6, "carbs": 50.3, "fat": 7.5}
+      ],
+      "note": "有做帶氧所以目標加到 2850。蛋白質達標，碳水差約 100g，脂肪略超。"
+    },
+    {
+      "date": "2026-10-05",
+      "complete": false,
+      "target": {"kcal": 2600, "protein": 140, "carbs": 340, "fat": 72},
+      "intake": {"kcal": 1824, "protein": 117, "carbs": 225, "fat": 49.5},
+      "meals": [
+        {"time": "07:56", "name": "早餐", "items": "烚蛋 2 隻、麥皮 30g、全脂奶 120ml", "kcal": 330, "protein": 20, "carbs": 27, "fat": 16},
+        {"time": "12:21", "name": "午餐", "items": "雞胸 200g、紅米飯 170g、青瓜 1.5 條", "kcal": 565, "protein": 66, "carbs": 52, "fat": 9.5},
+        {"time": "13:07", "name": "小食", "items": "GRAMS 蜜糖啫喱 1 條、米餅 6 塊", "kcal": 219, "protein": 3, "carbs": 53, "fat": 0},
+        {"time": "16:18", "name": "小食", "items": "唐記菜肉包 1 個、唐記雞包 1 個", "kcal": 710, "protein": 28, "carbs": 93, "fat": 24}
+      ],
+      "note": ""
+    }
+  ]
+}

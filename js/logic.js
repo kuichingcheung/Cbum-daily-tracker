@@ -1,7 +1,11 @@
 /**
  * Pure helpers for diet rules, training merges, stats, and UTF-8 base64.
  * Thresholds match data/diet.json `rules`:
- *   every macro is met when intake is within 95%–105% of that day's target.
+ *   kcal    intake within 95%–105% of target
+ *   protein intake >= 95% of target
+ *   carbs   intake >= 95% of target
+ *   fat     intake <= 105% of target
+ * A complete day passes when at least 3 of the 4 macros pass.
  */
 
 export const BODY_PARTS = ['胸', '背', '肩', '二頭', '三頭', '腿', '臀', '腹', '帶氧', '休息'];
@@ -95,7 +99,12 @@ export function macroPasses(key, intake, target) {
   const actual = Number(intake);
   const goal = Number(target);
   if (!MACRO_KEYS.includes(key) || !Number.isFinite(actual) || !Number.isFinite(goal)) return false;
-  return actual >= goal * 0.95 - EPS && actual <= goal * 1.05 + EPS;
+  const low = goal * 0.95 - EPS;
+  const high = goal * 1.05 + EPS;
+  if (key === 'kcal') return actual >= low && actual <= high;
+  if (key === 'protein' || key === 'carbs') return actual >= low;
+  if (key === 'fat') return actual <= high;
+  return false;
 }
 
 export function macroDelta(intake, target) {
@@ -126,15 +135,15 @@ export function evaluateDay(day) {
       delta: macroDelta(intake, target),
     };
   }
-  const allPass = MACRO_KEYS.every((key) => macros[key].pass);
+  const passed = MACRO_KEYS.filter((key) => macros[key].pass).length;
   let status = 'fail';
   if (!day.complete) status = 'progress';
-  else if (allPass) status = 'pass';
+  else if (passed >= 3) status = 'pass';
   return {
     date: day.date,
     complete: Boolean(day.complete),
     status,
-    allPass,
+    passed,
     macros,
   };
 }
@@ -255,14 +264,12 @@ export function computeWindowStats(dietDays, trainingDays, endDate, windowDays) 
 
   for (const day of complete) {
     const evaluation = evaluateDay(day);
-    let all = true;
     for (const key of MACRO_KEYS) {
       if (evaluation.macros[key].pass) hits[key] += 1;
-      else all = false;
       sumIntake[key] += evaluation.macros[key].intake;
       sumTarget[key] += evaluation.macros[key].target;
     }
-    if (all) hits.overall += 1;
+    if (evaluation.status === 'pass') hits.overall += 1;
   }
 
   const count = complete.length;

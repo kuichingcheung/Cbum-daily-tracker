@@ -43,7 +43,7 @@ Token 只會存喺部手機嘅 `localStorage`，唔會 commit 入 repo。清除�
 - **統計**：近 7 日同近 30 日嘅達標日數、平均攝取 / 目標、訓練日數同部位次數，加埋體重走勢
 - **設定**：token、repo，同測試連線
 
-`complete: false` 嘅日子顯示 **進行中**，唔會判達標定未達標。四項一齊過先算全日達標。
+`complete: false` 嘅日子顯示 **進行中**，唔會判達標定未達標。至少三項達標先算全日達標。
 
 ## 達標規則
 
@@ -52,9 +52,9 @@ Token 只會存喺部手機嘅 `localStorage`，唔會 commit 入 repo。清除�
 | 項目 | 達標 |
 | --- | --- |
 | 熱量 | 攝取係當日目標嘅 95%–105% |
-| 蛋白質 | 攝取係當日目標嘅 95%–105% |
-| 碳水 | 攝取係當日目標嘅 95%–105% |
-| 脂肪 | 攝取係當日目標嘅 95%–105% |
+| 蛋白質 | 攝取 ≥ 目標嘅 95%，冇上限 |
+| 碳水 | 攝取 ≥ 目標嘅 95%，冇上限 |
+| 脂肪 | 攝取 ≤ 目標嘅 105%，冇下限 |
 
 每項會顯示 **差 X**（未到目標）或者 **超 X**（超過目標）。差／超係同目標數字比，唔係同門檻比；過唔過關睇上面條規則。
 
@@ -68,9 +68,9 @@ Token 只會存喺部手機嘅 `localStorage`，唔會 commit 入 repo。清除�
 {
   "rules": {
     "kcal": "intake between 95% and 105% of target",
-    "protein": "intake between 95% and 105% of target",
-    "carbs": "intake between 95% and 105% of target",
-    "fat": "intake between 95% and 105% of target"
+    "protein": "intake >= 95% of target",
+    "carbs": "intake >= 95% of target",
+    "fat": "intake <= 105% of target"
   },
   "days": [
     {

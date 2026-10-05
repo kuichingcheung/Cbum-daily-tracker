@@ -33,8 +33,9 @@ test('2026-10-03 intake versus target matches the seed day', () => {
   assert.equal(deltaText(evaluation.macros.kcal.delta), '差 63');
   assert.equal(evaluation.macros.protein.intake, 154.5);
   assert.equal(evaluation.macros.protein.target, 140);
-  assert.equal(macroBadgeLabel(evaluation, 'protein'), '未達標');
+  assert.equal(macroBadgeLabel(evaluation, 'protein'), '達標');
   assert.equal(deltaText(evaluation.macros.protein.delta), '超 14.5');
+  assert.equal(evaluation.passed, 2);
   assert.equal(evaluation.macros.carbs.intake, 265);
   assert.equal(evaluation.macros.carbs.target, 340);
   assert.equal(macroBadgeLabel(evaluation, 'carbs'), '未達標');
@@ -56,26 +57,60 @@ test('2026-10-05 is in progress and is not judged', () => {
   assert.equal(deltaText(evaluation.macros.fat.delta), '差 22.5');
 });
 
-test('every macro uses the same inclusive ±5% band', () => {
-  for (const key of ['kcal', 'protein', 'carbs', 'fat']) {
-    assert.equal(macroPasses(key, 95, 100), true);
-    assert.equal(macroPasses(key, 105, 100), true);
-    assert.equal(macroPasses(key, 100, 100), true);
-    assert.equal(macroPasses(key, 94.9, 100), false);
-    assert.equal(macroPasses(key, 105.1, 100), false);
-  }
-  assert.equal(macroPasses('kcal', 2470, 2600), true);
-  assert.equal(macroPasses('kcal', 2730, 2600), true);
-  assert.equal(macroPasses('kcal', 2469, 2600), false);
-  assert.equal(macroPasses('kcal', 2731, 2600), false);
+test('each macro uses its own threshold', () => {
+  assert.equal(macroPasses('kcal', 95, 100), true);
+  assert.equal(macroPasses('kcal', 105, 100), true);
+  assert.equal(macroPasses('kcal', 94.9, 100), false);
+  assert.equal(macroPasses('kcal', 105.1, 100), false);
+
+  assert.equal(macroPasses('protein', 95, 100), true);
+  assert.equal(macroPasses('protein', 250, 100), true);
+  assert.equal(macroPasses('protein', 94.9, 100), false);
+  assert.equal(macroPasses('carbs', 95, 100), true);
+  assert.equal(macroPasses('carbs', 250, 100), true);
+  assert.equal(macroPasses('carbs', 94.9, 100), false);
+
+  assert.equal(macroPasses('fat', 105, 100), true);
+  assert.equal(macroPasses('fat', 0, 100), true);
+  assert.equal(macroPasses('fat', 105.1, 100), false);
 });
 
-test('2026-10-04 misses all four macros under ±5%', () => {
+test('a complete day passes when at least 3 macros pass', () => {
+  const target = { kcal: 100, protein: 100, carbs: 100, fat: 100 };
+  const passing = evaluateDay({
+    date: '2026-10-01',
+    complete: true,
+    target,
+    intake: { kcal: 100, protein: 200, carbs: 200, fat: 50 },
+  });
+  assert.equal(passing.passed, 4);
+  assert.equal(statusLabel(passing.status), '達標');
+
+  const twoOfFour = evaluateDay({
+    date: '2026-10-01',
+    complete: true,
+    target,
+    intake: { kcal: 100, protein: 200, carbs: 50, fat: 200 },
+  });
+  assert.equal(twoOfFour.passed, 2);
+  assert.equal(statusLabel(twoOfFour.status), '未達標');
+
+  const inProgress = evaluateDay({
+    date: '2026-10-01',
+    complete: false,
+    target,
+    intake: { kcal: 100, protein: 100, carbs: 100, fat: 100 },
+  });
+  assert.equal(statusLabel(inProgress.status), '進行中');
+});
+
+test('2026-10-04 passes protein only', () => {
   const evaluation = evaluateDay(day('2026-10-04'));
   assert.equal(evaluation.macros.kcal.pass, false);
-  assert.equal(evaluation.macros.protein.pass, false);
+  assert.equal(evaluation.macros.protein.pass, true);
   assert.equal(evaluation.macros.carbs.pass, false);
   assert.equal(evaluation.macros.fat.pass, false);
+  assert.equal(evaluation.passed, 1);
   assert.equal(statusLabel(evaluation.status), '未達標');
 });
 
@@ -143,7 +178,7 @@ test('last 7 days ending 2026-10-05 summarise the seed data', () => {
   const stats = computeWindowStats(diet.days, training.days, '2026-10-05', 7);
   assert.equal(stats.completeCount, 2);
   assert.equal(stats.progressCount, 1);
-  assert.deepEqual(stats.hits, { kcal: 1, protein: 0, carbs: 0, fat: 0, overall: 0 });
+  assert.deepEqual(stats.hits, { kcal: 1, protein: 2, carbs: 0, fat: 0, overall: 0 });
   assert.equal(stats.trainingCount, 2);
   assert.equal(stats.partCounts['胸'], 1);
   assert.equal(stats.partCounts['三頭'], 1);

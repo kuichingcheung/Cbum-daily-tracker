@@ -20,6 +20,7 @@ import {
   toggleBodyPart,
   toggleTrained,
   weightChartModel,
+  WEEKDAYS,
   weightSeries,
 } from './logic.js';
 
@@ -253,7 +254,7 @@ function renderToday() {
 function renderHistory() {
   const cells = monthCells(state.month);
   const today = hkToday();
-  const weeks = ['一', '二', '三', '四', '五', '六', '日'].map((day) => `<span>${day}</span>`).join('');
+  const weeks = WEEKDAYS.map((day) => `<span>${day}</span>`).join('');
   const days = cells.map((date) => {
     if (!date) return '<span></span>';
     const record = dietDay(date);

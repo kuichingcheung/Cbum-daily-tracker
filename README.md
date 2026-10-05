@@ -39,7 +39,7 @@ Token 只會存喺部手機嘅 `localStorage`，唔會 commit 入 repo。清除�
 ## 畫面
 
 - **今日**：當日飲食攝取對比目標（熱量、蛋白質、碳水、脂肪）、餐單、教練備註，同埋訓練開關
-- **紀錄**：月曆。飲食點：綠＝達標、紅＝未達標、灰＝進行中、淡灰＝未有紀錄；另外有青點代表有操。撳一日可以睇詳情同補返訓練
+- **紀錄**：月曆，一星期由星期日開始。飲食點：綠＝達標、紅＝未達標、灰＝進行中、淡灰＝未有紀錄；另外有青點代表有操。撳一日可以睇詳情同補返訓練
 - **統計**：近 7 日同近 30 日嘅達標日數、平均攝取 / 目標、訓練日數同部位次數，加埋體重走勢
 - **設定**：token、repo，同測試連線
 
@@ -51,10 +51,10 @@ Token 只會存喺部手機嘅 `localStorage`，唔會 commit 入 repo。清除�
 
 | 項目 | 達標 |
 | --- | --- |
-| 熱量 | 攝取係目標嘅 90%–110% |
-| 蛋白質 | 攝取 ≥ 目標 |
-| 碳水 | 攝取 ≥ 目標嘅 90% |
-| 脂肪 | 攝取 ≤ 目標嘅 110% |
+| 熱量 | 攝取係當日目標嘅 95%–105% |
+| 蛋白質 | 攝取係當日目標嘅 95%–105% |
+| 碳水 | 攝取係當日目標嘅 95%–105% |
+| 脂肪 | 攝取係當日目標嘅 95%–105% |
 
 每項會顯示 **差 X**（未到目標）或者 **超 X**（超過目標）。差／超係同目標數字比，唔係同門檻比；過唔過關睇上面條規則。
 
@@ -67,10 +67,10 @@ Token 只會存喺部手機嘅 `localStorage`，唔會 commit 入 repo。清除�
 ```json
 {
   "rules": {
-    "kcal": "intake between 90% and 110% of target",
-    "protein": "intake >= target",
-    "carbs": "intake >= 90% of target",
-    "fat": "intake <= 110% of target"
+    "kcal": "intake between 95% and 105% of target",
+    "protein": "intake between 95% and 105% of target",
+    "carbs": "intake between 95% and 105% of target",
+    "fat": "intake between 95% and 105% of target"
   },
   "days": [
     {

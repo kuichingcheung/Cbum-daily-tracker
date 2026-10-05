@@ -11,6 +11,7 @@ import {
   macroBadgeLabel,
   macroPasses,
   mergeTrainingDay,
+  monthCells,
   statusLabel,
   stringifyTraining,
   toggleBodyPart,
@@ -32,7 +33,7 @@ test('2026-10-03 intake versus target matches the seed day', () => {
   assert.equal(deltaText(evaluation.macros.kcal.delta), '差 63');
   assert.equal(evaluation.macros.protein.intake, 154.5);
   assert.equal(evaluation.macros.protein.target, 140);
-  assert.equal(macroBadgeLabel(evaluation, 'protein'), '達標');
+  assert.equal(macroBadgeLabel(evaluation, 'protein'), '未達標');
   assert.equal(deltaText(evaluation.macros.protein.delta), '超 14.5');
   assert.equal(evaluation.macros.carbs.intake, 265);
   assert.equal(evaluation.macros.carbs.target, 340);
@@ -55,26 +56,36 @@ test('2026-10-05 is in progress and is not judged', () => {
   assert.equal(deltaText(evaluation.macros.fat.delta), '差 22.5');
 });
 
-test('macro thresholds include the 90% and 110% boundaries', () => {
-  assert.equal(macroPasses('kcal', 2340, 2600), true);
-  assert.equal(macroPasses('kcal', 2860, 2600), true);
-  assert.equal(macroPasses('kcal', 2339, 2600), false);
-  assert.equal(macroPasses('kcal', 2861, 2600), false);
-  assert.equal(macroPasses('protein', 140, 140), true);
-  assert.equal(macroPasses('protein', 139.9, 140), false);
-  assert.equal(macroPasses('carbs', 306, 340), true);
-  assert.equal(macroPasses('carbs', 305, 340), false);
-  assert.equal(macroPasses('fat', 79.2, 72), true);
-  assert.equal(macroPasses('fat', 79.3, 72), false);
+test('every macro uses the same inclusive ±5% band', () => {
+  for (const key of ['kcal', 'protein', 'carbs', 'fat']) {
+    assert.equal(macroPasses(key, 95, 100), true);
+    assert.equal(macroPasses(key, 105, 100), true);
+    assert.equal(macroPasses(key, 100, 100), true);
+    assert.equal(macroPasses(key, 94.9, 100), false);
+    assert.equal(macroPasses(key, 105.1, 100), false);
+  }
+  assert.equal(macroPasses('kcal', 2470, 2600), true);
+  assert.equal(macroPasses('kcal', 2730, 2600), true);
+  assert.equal(macroPasses('kcal', 2469, 2600), false);
+  assert.equal(macroPasses('kcal', 2731, 2600), false);
 });
 
-test('2026-10-04 misses carbs and fat only', () => {
+test('2026-10-04 misses all four macros under ±5%', () => {
   const evaluation = evaluateDay(day('2026-10-04'));
-  assert.equal(evaluation.macros.kcal.pass, true);
-  assert.equal(evaluation.macros.protein.pass, true);
+  assert.equal(evaluation.macros.kcal.pass, false);
+  assert.equal(evaluation.macros.protein.pass, false);
   assert.equal(evaluation.macros.carbs.pass, false);
   assert.equal(evaluation.macros.fat.pass, false);
   assert.equal(statusLabel(evaluation.status), '未達標');
+});
+
+test('October 2026 calendar starts on Sunday', () => {
+  const cells = monthCells('2026-10');
+  assert.equal(cells[0], null);
+  assert.equal(cells[3], null);
+  assert.equal(cells[4], '2026-10-01');
+  assert.equal(cells[7], '2026-10-04');
+  assert.equal(cells[8], '2026-10-05');
 });
 
 test('merge replaces a day, appends a new one, and keeps date order', () => {
@@ -132,7 +143,7 @@ test('last 7 days ending 2026-10-05 summarise the seed data', () => {
   const stats = computeWindowStats(diet.days, training.days, '2026-10-05', 7);
   assert.equal(stats.completeCount, 2);
   assert.equal(stats.progressCount, 1);
-  assert.deepEqual(stats.hits, { kcal: 2, protein: 2, carbs: 0, fat: 0, overall: 0 });
+  assert.deepEqual(stats.hits, { kcal: 1, protein: 0, carbs: 0, fat: 0, overall: 0 });
   assert.equal(stats.trainingCount, 2);
   assert.equal(stats.partCounts['胸'], 1);
   assert.equal(stats.partCounts['三頭'], 1);

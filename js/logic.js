@@ -1,13 +1,12 @@
 /**
  * Pure helpers for diet rules, training merges, stats, and UTF-8 base64.
  * Thresholds match data/diet.json `rules`:
- *   kcal    intake within 90%–110% of target
- *   protein intake >= target
- *   carbs   intake >= 90% of target
- *   fat     intake <= 110% of target
+ *   every macro is met when intake is within 95%–105% of that day's target.
  */
 
 export const BODY_PARTS = ['胸', '背', '肩', '二頭', '三頭', '腿', '臀', '腹', '帶氧', '休息'];
+
+export const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六'];
 
 export const MACRO_KEYS = ['kcal', 'protein', 'carbs', 'fat'];
 
@@ -18,7 +17,6 @@ export const MACRO_META = {
   fat: { label: '脂肪', unit: 'g' },
 };
 
-const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六'];
 const EPS = 1e-6;
 
 export function hkToday(now = new Date()) {
@@ -71,11 +69,10 @@ export function monthTitle(yearMonth) {
   return `${year}年${month}月`;
 }
 
-/** Monday-first month grid. Nulls are leading/trailing blanks. */
+/** Sunday-first month grid. Nulls are leading/trailing blanks. */
 export function monthCells(yearMonth) {
   const [year, month] = yearMonth.split('-').map(Number);
-  const firstWeekday = new Date(Date.UTC(year, month - 1, 1)).getUTCDay();
-  const leading = (firstWeekday + 6) % 7;
+  const leading = new Date(Date.UTC(year, month - 1, 1)).getUTCDay();
   const daysInMonth = new Date(Date.UTC(year, month, 0)).getUTCDate();
   const cells = [];
   for (let i = 0; i < leading; i += 1) cells.push(null);
@@ -97,12 +94,8 @@ export function formatNum(value) {
 export function macroPasses(key, intake, target) {
   const actual = Number(intake);
   const goal = Number(target);
-  if (!Number.isFinite(actual) || !Number.isFinite(goal)) return false;
-  if (key === 'kcal') return actual >= goal * 0.9 - EPS && actual <= goal * 1.1 + EPS;
-  if (key === 'protein') return actual >= goal - EPS;
-  if (key === 'carbs') return actual >= goal * 0.9 - EPS;
-  if (key === 'fat') return actual <= goal * 1.1 + EPS;
-  return false;
+  if (!MACRO_KEYS.includes(key) || !Number.isFinite(actual) || !Number.isFinite(goal)) return false;
+  return actual >= goal * 0.95 - EPS && actual <= goal * 1.05 + EPS;
 }
 
 export function macroDelta(intake, target) {

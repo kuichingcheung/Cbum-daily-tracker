@@ -3,6 +3,7 @@
     {"date": "2026-10-03", "trained": true, "parts": ["胸","三頭"], "note": "推日"},
     {"date": "2026-10-04", "trained": true, "parts": ["背","帶氧"], "note": "斜坡行 30 分鐘"},
     {"date": "2026-10-05", "trained": true, "parts": ["腿"]},
-    {"date": "2026-10-06", "trained": true, "parts": ["肩","帶氧"]}
+    {"date": "2026-10-06", "trained": true, "parts": ["肩","帶氧"]},
+    {"date": "2026-10-07", "trained": false, "parts": ["休息"]}
   ]
 }

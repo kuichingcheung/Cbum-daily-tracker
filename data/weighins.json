@@ -1,6 +1,22 @@
 {
   "entries": [
-    {"date": "2026-10-02", "weight": 66.0, "smm": 34, "note": "起點，非空肚，InBody SMM"},
-    {"date": "2026-10-04", "weight": 64.9, "bodyFat": 17.6, "note": "新基準，空肚，智能磅"}
+    {
+      "date": "2026-10-02",
+      "weight": 66.0,
+      "smm": 34,
+      "note": "起點，非空肚，InBody SMM"
+    },
+    {
+      "date": "2026-10-04",
+      "weight": 64.9,
+      "bodyFat": 17.6,
+      "note": "新基準，空肚，智能磅"
+    },
+    {
+      "date": "2026-10-11",
+      "weight": 65.8,
+      "bodyFat": 17.8,
+      "note": "空肚，智能磅；肌肉量 51.31 kg（非 InBody SMM）"
+    }
   ]
 }

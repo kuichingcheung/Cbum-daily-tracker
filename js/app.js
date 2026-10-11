@@ -163,7 +163,7 @@ function badge(kind, label, large = false) {
 }
 
 function pageHead(title, subtitle) {
-  return `<header class="page-head"><p class="brand">CBUM</p><h1>${title}</h1><p class="sub">${subtitle}</p></header>`;
+  return `<header class="page-head"><p class="brand">Road to Cbum</p><h1>${title}</h1><p class="sub">${subtitle}</p></header>`;
 }
 
 function renderDiet(day) {
@@ -428,7 +428,7 @@ function renderSettings() {
 function render() {
   applyRoute();
   const titles = { today: '今日', history: '紀錄', stats: '統計', settings: '設定' };
-  document.title = `${titles[state.route] || 'Cbum'} · Cbum`;
+  document.title = `${titles[state.route] || 'Road to Cbum'} · Road to Cbum`;
   document.querySelectorAll('[data-nav]').forEach((button) => {
     if (button.dataset.nav === state.route) button.setAttribute('aria-current', 'page');
     else button.removeAttribute('aria-current');

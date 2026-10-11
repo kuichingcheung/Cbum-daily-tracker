@@ -1,4 +1,4 @@
-# Cbum 健身紀錄
+# Road to Cbum
 
 個人用、手機優先嘅增肌追蹤頁。純 HTML / CSS / JavaScript，唔使 build，可以直接由 GitHub Pages 用 `main` 分支根目錄托管。
 
@@ -34,7 +34,7 @@ Token 只會存喺部手機嘅 `localStorage`，唔會 commit 入 repo。清除�
 1. 用 **Safari** 打開 Pages 網址（唔好用 in-app browser）
 2. 撳底部分享按鈕
 3. 向下搵 **加入主畫面** → **加入**
-4. 之後由主畫面個 **Cbum** 圖示開，會以獨立畫面顯示，唔會帶 Safari 工具列
+4. 之後由主畫面個 **Road to Cbum** 圖示開，會以獨立畫面顯示，唔會帶 Safari 工具列
 
 ## 畫面
 

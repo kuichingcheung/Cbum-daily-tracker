@@ -5,6 +5,7 @@
     {"date": "2026-10-05", "trained": true, "parts": ["腿"]},
     {"date": "2026-10-06", "trained": true, "parts": ["肩","帶氧"]},
     {"date": "2026-10-07", "trained": false, "parts": ["休息"]},
-    {"date": "2026-10-08", "trained": true, "parts": ["胸","二頭","帶氧"]}
+    {"date": "2026-10-08", "trained": true, "parts": ["胸","二頭","帶氧"]},
+    {"date": "2026-10-10", "trained": true, "parts": ["背","帶氧"]}
   ]
 }

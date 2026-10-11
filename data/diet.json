@@ -656,10 +656,10 @@
         "fat": 72
       },
       "intake": {
-        "kcal": 407,
-        "protein": 18.8,
-        "carbs": 74.6,
-        "fat": 4.9
+        "kcal": 471,
+        "protein": 20.3,
+        "carbs": 81.3,
+        "fat": 8.7
       },
       "meals": [
         {
@@ -675,9 +675,20 @@
           "protein": 18.8,
           "carbs": 74.6,
           "fat": 4.9
+        },
+        {
+          "time": "11:02",
+          "name": "小食",
+          "items": [
+            "Pepero Almond 3/8 盒（約 12 克）"
+          ],
+          "kcal": 64,
+          "protein": 1.5,
+          "carbs": 6.7,
+          "fat": 3.8
         }
       ],
-      "note": "早餐：果蓉袋、香蕉、麥皮、蛋白液"
+      "note": "早餐：果蓉袋、香蕉、麥皮、蛋白液；小食：Pepero 3/8"
     }
   ]
 }

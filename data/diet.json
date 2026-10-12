@@ -745,10 +745,10 @@
         "fat": 72
       },
       "intake": {
-        "kcal": 1083,
-        "protein": 68.5,
-        "carbs": 123.9,
-        "fat": 33.5
+        "kcal": 1363,
+        "protein": 83.5,
+        "carbs": 173.4,
+        "fat": 35.8
       },
       "meals": [
         {
@@ -778,9 +778,20 @@
           "protein": 45.2,
           "carbs": 57,
           "fat": 20.6
+        },
+        {
+          "time": "16:23",
+          "name": "小食",
+          "items": [
+            "Rule 1 Clean Gainer 半個 serving（約 72.5 克）"
+          ],
+          "kcal": 280,
+          "protein": 15,
+          "carbs": 49.5,
+          "fat": 2.3
         }
       ],
-      "note": "早餐：香蕉、雞蛋、蛋白液、麥皮、果蓉袋；午餐：白飯、牛腱"
+      "note": "早餐：香蕉、雞蛋、蛋白液、麥皮、果蓉袋；午餐：白飯、牛腱；小食：Clean Gainer 半份"
     }
   ]
 }

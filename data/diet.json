@@ -829,25 +829,26 @@
         "fat": 72
       },
       "intake": {
-        "kcal": 105,
-        "protein": 1.3,
-        "carbs": 27,
-        "fat": 0.3
+        "kcal": 248,
+        "protein": 13.9,
+        "carbs": 27.8,
+        "fat": 9.8
       },
       "meals": [
         {
           "time": "07:57",
           "name": "早餐",
           "items": [
-            "香蕉 1 條"
+            "香蕉 1 條",
+            "雞蛋 2 隻"
           ],
-          "kcal": 105,
-          "protein": 1.3,
-          "carbs": 27,
-          "fat": 0.3
+          "kcal": 248,
+          "protein": 13.9,
+          "carbs": 27.8,
+          "fat": 9.8
         }
       ],
-      "note": "早餐：香蕉"
+      "note": "早餐：香蕉、雞蛋 2 隻"
     }
   ]
 }

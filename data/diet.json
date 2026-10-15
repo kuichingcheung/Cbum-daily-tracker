@@ -1009,10 +1009,10 @@
         "fat": 72
       },
       "intake": {
-        "kcal": 360,
-        "protein": 20.1,
-        "carbs": 33.4,
-        "fat": 17.4
+        "kcal": 440,
+        "protein": 21.1,
+        "carbs": 52.4,
+        "fat": 18.4
       },
       "meals": [
         {
@@ -1021,15 +1021,16 @@
           "items": [
             "Select 原味 bagel 1 個",
             "牛油 少少（約 5 克）",
-            "雞蛋 2 隻"
+            "雞蛋 2 隻",
+            "Beech-Nut 果蓉袋 1 支（99 克，草莓香蕉乳酪）"
           ],
-          "kcal": 360,
-          "protein": 20.1,
-          "carbs": 33.4,
-          "fat": 17.4
+          "kcal": 440,
+          "protein": 21.1,
+          "carbs": 52.4,
+          "fat": 18.4
         }
       ],
-      "note": "早餐：bagel+牛油、雞蛋"
+      "note": "早餐：bagel+牛油、雞蛋、Beech-Nut果蓉袋"
     }
   ]
 }

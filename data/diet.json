@@ -1093,10 +1093,10 @@
         "fat": 72
       },
       "intake": {
-        "kcal": 521,
-        "protein": 30.9,
-        "carbs": 82.5,
-        "fat": 6.5
+        "kcal": 1441,
+        "protein": 79.9,
+        "carbs": 161.5,
+        "fat": 53.5
       },
       "meals": [
         {
@@ -1111,9 +1111,22 @@
           "protein": 30.9,
           "carbs": 82.5,
           "fat": 6.5
+        },
+        {
+          "time": "13:03",
+          "name": "午餐",
+          "items": [
+            "沙嗲牛肉五香肉丁出前一丁 1 碗",
+            "白多士 1 片（少牛油）",
+            "煎蛋 1 隻"
+          ],
+          "kcal": 920,
+          "protein": 49,
+          "carbs": 79,
+          "fat": 47
         }
       ],
-      "note": "早餐：麥皮、白飯、Nutricost pea protein（標籤）"
+      "note": "早餐：麥皮、白飯、Nutricost pea；午餐：沙嗲牛肉五香肉丁出前一丁＋多士煎蛋（估）"
     }
   ]
 }

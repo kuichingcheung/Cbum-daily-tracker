@@ -1093,10 +1093,10 @@
         "fat": 72
       },
       "intake": {
-        "kcal": 411,
-        "protein": 10.9,
-        "carbs": 81.5,
-        "fat": 4.0
+        "kcal": 561,
+        "protein": 40.9,
+        "carbs": 86.5,
+        "fat": 6.0
       },
       "meals": [
         {
@@ -1104,15 +1104,16 @@
           "name": "早餐",
           "items": [
             "麥皮 50 克",
-            "白飯 170 克"
+            "白飯 170 克",
+            "Pea protein 1 serving（蛋白質 30 克）"
           ],
-          "kcal": 411,
-          "protein": 10.9,
-          "carbs": 81.5,
-          "fat": 4.0
+          "kcal": 561,
+          "protein": 40.9,
+          "carbs": 86.5,
+          "fat": 6.0
         }
       ],
-      "note": "早餐：麥皮、白飯"
+      "note": "早餐：麥皮、白飯、pea protein"
     }
   ]
 }

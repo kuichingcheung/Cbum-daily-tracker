@@ -1093,10 +1093,10 @@
         "fat": 72
       },
       "intake": {
-        "kcal": 1846,
-        "protein": 91.2,
-        "carbs": 244.5,
-        "fat": 57.3
+        "kcal": 1727,
+        "protein": 88.7,
+        "carbs": 221.1,
+        "fat": 57.7
       },
       "meals": [
         {
@@ -1129,16 +1129,16 @@
           "time": "14:36",
           "name": "小食",
           "items": [
-            "Select bagel 1 個",
+            "Select bagel 1 個（標籤）",
             "香蕉 1 條（中）"
           ],
-          "kcal": 405,
-          "protein": 11.3,
-          "carbs": 83,
-          "fat": 3.8
+          "kcal": 286,
+          "protein": 8.8,
+          "carbs": 59.6,
+          "fat": 4.2
         }
       ],
-      "note": "早餐 pea；午餐出前一丁＋多士煎蛋；小食 Select bagel＋香蕉"
+      "note": "小食已改用 Select bagel 標籤（181/7.5/32.6/3.9）"
     }
   ]
 }

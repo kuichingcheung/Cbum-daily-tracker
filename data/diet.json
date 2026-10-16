@@ -1093,10 +1093,10 @@
         "fat": 72
       },
       "intake": {
-        "kcal": 561,
-        "protein": 40.9,
-        "carbs": 86.5,
-        "fat": 6.0
+        "kcal": 521,
+        "protein": 30.9,
+        "carbs": 82.5,
+        "fat": 6.5
       },
       "meals": [
         {
@@ -1105,15 +1105,15 @@
           "items": [
             "麥皮 50 克",
             "白飯 170 克",
-            "Pea protein 1 serving（蛋白質 30 克）"
+            "Nutricost Organic Pea Protein 1 scoop（26 克，標籤）"
           ],
-          "kcal": 561,
-          "protein": 40.9,
-          "carbs": 86.5,
-          "fat": 6.0
+          "kcal": 521,
+          "protein": 30.9,
+          "carbs": 82.5,
+          "fat": 6.5
         }
       ],
-      "note": "早餐：麥皮、白飯、pea protein"
+      "note": "早餐：麥皮、白飯、Nutricost pea protein（標籤）"
     }
   ]
 }

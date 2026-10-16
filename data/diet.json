@@ -1093,10 +1093,10 @@
         "fat": 72
       },
       "intake": {
-        "kcal": 1441,
-        "protein": 79.9,
-        "carbs": 161.5,
-        "fat": 53.5
+        "kcal": 1846,
+        "protein": 91.2,
+        "carbs": 244.5,
+        "fat": 57.3
       },
       "meals": [
         {
@@ -1124,9 +1124,21 @@
           "protein": 49,
           "carbs": 79,
           "fat": 47
+        },
+        {
+          "time": "14:36",
+          "name": "小食",
+          "items": [
+            "Select bagel 1 個",
+            "香蕉 1 條（中）"
+          ],
+          "kcal": 405,
+          "protein": 11.3,
+          "carbs": 83,
+          "fat": 3.8
         }
       ],
-      "note": "早餐：麥皮、白飯、Nutricost pea；午餐：沙嗲牛肉五香肉丁出前一丁＋多士煎蛋（估）"
+      "note": "早餐 pea；午餐出前一丁＋多士煎蛋；小食 Select bagel＋香蕉"
     }
   ]
 }

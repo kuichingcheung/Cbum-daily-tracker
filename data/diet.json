@@ -1165,10 +1165,10 @@
         "fat": 72
       },
       "intake": {
-        "kcal": 271,
-        "protein": 9.5,
-        "carbs": 48.6,
-        "fat": 5.9
+        "kcal": 836,
+        "protein": 31.5,
+        "carbs": 85.9,
+        "fat": 41.8
       },
       "meals": [
         {
@@ -1182,9 +1182,21 @@
           "protein": 9.5,
           "carbs": 48.6,
           "fat": 5.9
+        },
+        {
+          "time": "17:16",
+          "name": "午餐",
+          "items": [
+            "豬柳蛋漢堡 1 個",
+            "脆薯餅 1 件（$1）"
+          ],
+          "kcal": 565,
+          "protein": 22.0,
+          "carbs": 37.3,
+          "fat": 35.9
         }
       ],
-      "note": "早餐：Select bagel（舊標籤）＋Happy Family pouch（標籤 90/2/16/2）"
+      "note": "早餐 bagel＋果蓉；午餐豬柳蛋漢堡＋薯餅（跟 10/13 McD 標籤紀錄）"
     }
   ]
 }

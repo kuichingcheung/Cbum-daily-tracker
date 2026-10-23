@@ -1209,6 +1209,37 @@
         }
       ],
       "note": "晚餐蜆意粉＋pepperoni 薄餅首次估（無舊紀錄）；其後雲南旅行，未再逐餐入；收工標記。"
+    },
+    {
+      "date": "2026-10-23",
+      "complete": false,
+      "target": {
+        "kcal": 2600,
+        "protein": 140,
+        "carbs": 340,
+        "fat": 72
+      },
+      "intake": {
+        "kcal": 414,
+        "protein": 30.4,
+        "carbs": 53.8,
+        "fat": 8.1
+      },
+      "meals": [
+        {
+          "time": "10:01",
+          "name": "早餐",
+          "items": [
+            "麥皮 80 克（跟 10/11 紀錄按比例）",
+            "Nutricost Organic Pea Protein 1 scoop（26 克，標籤）"
+          ],
+          "kcal": 414,
+          "protein": 30.4,
+          "carbs": 53.8,
+          "fat": 8.1
+        }
+      ],
+      "note": "旅行後重新出發；早餐：麥皮80g＋豌豆蛋白1 scoop"
     }
   ]
 }

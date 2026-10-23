@@ -1157,7 +1157,7 @@
     },
     {
       "date": "2026-10-17",
-      "complete": false,
+      "complete": true,
       "target": {
         "kcal": 2600,
         "protein": 140,
@@ -1208,7 +1208,7 @@
           "fat": 38
         }
       ],
-      "note": "晚餐蜆意粉＋pepperoni 薄餅首次估（無舊紀錄）"
+      "note": "晚餐蜆意粉＋pepperoni 薄餅首次估（無舊紀錄）；其後雲南旅行，未再逐餐入；收工標記。"
     }
   ]
 }

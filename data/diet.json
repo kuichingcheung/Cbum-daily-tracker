@@ -1280,6 +1280,38 @@
         }
       ],
       "note": "收工 2035/139.6/267.7/41.6 → 未達標（kcal✗ P✓ C✗ F✓；2/4）"
+    },
+    {
+      "date": "2026-10-24",
+      "complete": false,
+      "target": {
+        "kcal": 2600,
+        "protein": 140,
+        "carbs": 340,
+        "fat": 72
+      },
+      "intake": {
+        "kcal": 574,
+        "protein": 46.1,
+        "carbs": 54.8,
+        "fat": 18.0
+      },
+      "meals": [
+        {
+          "time": "10:05",
+          "name": "早餐",
+          "items": [
+            "麥皮 80 克（跟 10/11 按比例）",
+            "雞蛋 2 隻（跟 10/13）",
+            "Nutricost Organic Pea Protein 30 克（跟標籤 scoop 26g 按比例）"
+          ],
+          "kcal": 574,
+          "protein": 46.1,
+          "carbs": 54.8,
+          "fat": 18.0
+        }
+      ],
+      "note": "早餐：麥皮80＋蛋2＋豌豆蛋白30g"
     }
   ]
 }

@@ -1410,7 +1410,7 @@
     },
     {
       "date": "2026-10-26",
-      "complete": false,
+      "complete": true,
       "target": {
         "kcal": 2780,
         "protein": 140,
@@ -1465,7 +1465,7 @@
           "fat": 5.8
         }
       ],
-      "note": "早餐；午餐牛扒+Lean Mass半；晚餐生米150+雞胸一舊"
+      "note": "收工 2823/187.4/377.2/55.8 → 達標（kcal✓ P✓ C✓ F✓；4/4）"
     }
   ]
 }

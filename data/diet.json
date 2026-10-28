@@ -1469,7 +1469,7 @@
     },
     {
       "date": "2026-10-27",
-      "complete": false,
+      "complete": true,
       "target": {
         "kcal": 2780,
         "protein": 140,

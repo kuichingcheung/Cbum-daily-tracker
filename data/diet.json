@@ -1771,6 +1771,24 @@
         }
       ],
       "note": "收工 2739/138.4/327.9/92.2 → 未達標（2/4）（kcal✓ P✓ C✗ F✗）"
+    },
+    {
+      "date": "2026-11-01",
+      "complete": false,
+      "target": {
+        "kcal": 2780,
+        "protein": 140,
+        "carbs": 390,
+        "fat": 72
+      },
+      "intake": {
+        "kcal": 0,
+        "protein": 0,
+        "carbs": 0,
+        "fat": 0
+      },
+      "meals": [],
+      "note": "週日上磅 66.75／肌肉 51.75；未開食"
     }
   ]
 }

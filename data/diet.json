@@ -1883,9 +1883,9 @@
       },
       "intake": {
         "kcal": 1427,
-        "protein": 84.5,
-        "carbs": 211.1,
-        "fat": 24.0
+        "protein": 74.5,
+        "carbs": 223.1,
+        "fat": 23.3
       },
       "meals": [
         {
@@ -1907,15 +1907,15 @@
           "time": "16:10",
           "name": "小食",
           "items": [
-            "Rule 1 Lean Mass 半 serving（跟 10/26）"
+            "Rule 1 Clean Gainer 半 serving（標籤半份 560→280）"
           ],
           "kcal": 280,
-          "protein": 25.0,
-          "carbs": 37.5,
-          "fat": 3.0
+          "protein": 15.0,
+          "carbs": 49.5,
+          "fat": 2.3
         }
       ],
-      "note": "早餐：生米150+火腿+蛋2+麥皮80+豌豆26；小食：Lean Mass半"
+      "note": "早餐：生米150+火腿+蛋2+麥皮80+豌豆26；小食：Clean Gainer半（標籤）"
     }
   ]
 }

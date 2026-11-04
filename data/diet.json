@@ -1950,10 +1950,10 @@
         "fat": 72
       },
       "intake": {
-        "kcal": 1021,
-        "protein": 50.9,
-        "carbs": 159.9,
-        "fat": 17.1
+        "kcal": 1161,
+        "protein": 74.9,
+        "carbs": 163.9,
+        "fat": 20.1
       },
       "meals": [
         {
@@ -1969,9 +1969,20 @@
           "protein": 50.9,
           "carbs": 159.9,
           "fat": 17.1
+        },
+        {
+          "time": "15:23",
+          "name": "小食",
+          "items": [
+            "ON protein shake 1 支（跟 10/29 蛋白飲標籤 325mL）"
+          ],
+          "kcal": 140,
+          "protein": 24.0,
+          "carbs": 4.0,
+          "fat": 3.0
         }
       ],
-      "note": "早餐：麥皮60+豌豆26+蛋2+生米150"
+      "note": "早餐：麥皮60+豌豆26+蛋2+生米150；小食：ON protein shake"
     }
   ]
 }

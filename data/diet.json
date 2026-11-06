@@ -2023,10 +2023,10 @@
       "date": "2026-11-05",
       "complete": false,
       "target": {
-        "kcal": 2780,
-        "protein": 140,
-        "carbs": 390,
-        "fat": 72
+        "kcal": 2500,
+        "protein": 150,
+        "carbs": 310,
+        "fat": 55
       },
       "intake": {
         "kcal": 1592,

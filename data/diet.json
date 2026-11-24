@@ -2544,6 +2544,24 @@
         }
       ],
       "note": "早餐：bagel1+Happy Family 果蓉袋1；目標 2200/170/240/45"
+    },
+    {
+      "date": "2026-11-26",
+      "complete": false,
+      "target": {
+        "kcal": 1993,
+        "protein": 119,
+        "carbs": 231,
+        "fat": 66
+      },
+      "intake": {
+        "kcal": 0,
+        "protein": 0,
+        "carbs": 0,
+        "fat": 0
+      },
+      "meals": [],
+      "note": "譚成義 8–9 小時檔開始；66 kg；目標 1993/119/231/66；尚未進食"
     }
   ]
 }

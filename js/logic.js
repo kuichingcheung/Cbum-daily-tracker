@@ -5,7 +5,9 @@
  *   protein intake >= 95% of target
  *   carbs   intake >= 95% of target
  *   fat     intake <= 105% of target
- * A complete day passes when at least 3 of the 4 macros pass.
+ * A day is judged when `complete` is true, or when its date is before the
+ * Hong Kong calendar day (`today`). The current day stays in progress until
+ * it is marked complete. A judged day passes when at least 3 of the 4 macros pass.
  */
 
 export const BODY_PARTS = ['胸', '背', '肩', '二頭', '三頭', '腿', '臀', '腹', '帶氧', '休息'];
@@ -30,6 +32,25 @@ export function hkToday(now = new Date()) {
     month: '2-digit',
     day: '2-digit',
   }).format(now);
+}
+
+/** Milliseconds until the next 00:00 in Asia/Hong_Kong. Hong Kong is UTC+8 all year. */
+export function msUntilNextHkMidnight(now = new Date()) {
+  const { year, month, day } = parseDateParts(hkToday(now));
+  const nextMidnightUtc = Date.UTC(year, month - 1, day, 16, 0, 0, 0);
+  return Math.max(0, nextMidnightUtc - now.getTime());
+}
+
+/**
+ * Past Hong Kong dates are settled even when the stored `complete` flag is
+ * still false, so the label flips at midnight without a write.
+ */
+export function dietDaySettled(day, today = hkToday()) {
+  if (!day) return false;
+  if (day.complete) return true;
+  return typeof day.date === 'string'
+    && /^\d{4}-\d{2}-\d{2}$/.test(day.date)
+    && day.date < today;
 }
 
 export function parseDateParts(dateStr) {
@@ -121,7 +142,7 @@ export function deltaText(delta) {
   return `差 ${formatNum(delta.amount)}`;
 }
 
-export function evaluateDay(day) {
+export function evaluateDay(day, today = hkToday()) {
   if (!day) return null;
   const macros = {};
   for (const key of MACRO_KEYS) {
@@ -136,12 +157,14 @@ export function evaluateDay(day) {
     };
   }
   const passed = MACRO_KEYS.filter((key) => macros[key].pass).length;
+  const settled = dietDaySettled(day, today);
   let status = 'fail';
-  if (!day.complete) status = 'progress';
+  if (!settled) status = 'progress';
   else if (passed >= 3) status = 'pass';
   return {
     date: day.date,
     complete: Boolean(day.complete),
+    settled,
     status,
     passed,
     macros,
@@ -159,10 +182,9 @@ export function macroBadgeLabel(evaluation, key) {
   return evaluation.macros[key].pass ? '達標' : '未達標';
 }
 
-export function dietDot(day) {
+export function dietDot(day, today = hkToday()) {
   if (!day) return 'none';
-  const evaluation = evaluateDay(day);
-  return evaluation.status;
+  return evaluateDay(day, today).status;
 }
 
 export function barPercent(intake, target) {
@@ -257,22 +279,24 @@ export function dateInRange(date, start, end) {
 export function computeWindowStats(dietDays, trainingDays, endDate, windowDays) {
   const start = addDays(endDate, -(windowDays - 1));
   const diet = (dietDays || []).filter((day) => dateInRange(day.date, start, endDate));
-  const complete = diet.filter((day) => day.complete);
+  const judged = diet.filter((day) => dietDaySettled(day, endDate));
   const hits = { kcal: 0, protein: 0, carbs: 0, fat: 0, overall: 0 };
   const sumIntake = { kcal: 0, protein: 0, carbs: 0, fat: 0 };
   const sumTarget = { kcal: 0, protein: 0, carbs: 0, fat: 0 };
 
-  for (const day of complete) {
-    const evaluation = evaluateDay(day);
+  for (const day of judged) {
+    const evaluation = evaluateDay(day, endDate);
     for (const key of MACRO_KEYS) {
       if (evaluation.macros[key].pass) hits[key] += 1;
-      sumIntake[key] += evaluation.macros[key].intake;
-      sumTarget[key] += evaluation.macros[key].target;
+      const intake = evaluation.macros[key].intake;
+      const target = evaluation.macros[key].target;
+      sumIntake[key] += Number.isFinite(intake) ? intake : 0;
+      sumTarget[key] += Number.isFinite(target) ? target : 0;
     }
     if (evaluation.status === 'pass') hits.overall += 1;
   }
 
-  const count = complete.length;
+  const count = judged.length;
   const avg = (sums) => Object.fromEntries(
     MACRO_KEYS.map((key) => [key, count ? sums[key] / count : null]),
   );
@@ -290,7 +314,7 @@ export function computeWindowStats(dietDays, trainingDays, endDate, windowDays) 
     end: endDate,
     windowDays,
     completeCount: count,
-    progressCount: diet.filter((day) => !day.complete).length,
+    progressCount: diet.filter((day) => !dietDaySettled(day, endDate)).length,
     hits,
     avgIntake: avg(sumIntake),
     avgTarget: avg(sumTarget),

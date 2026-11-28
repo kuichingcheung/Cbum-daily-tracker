@@ -6,12 +6,15 @@ import {
   computeWindowStats,
   decodeBase64Utf8,
   deltaText,
+  dietDot,
   encodeBase64Utf8,
   evaluateDay,
+  hkToday,
   macroBadgeLabel,
   macroPasses,
   mergeTrainingDay,
   monthCells,
+  msUntilNextHkMidnight,
   statusLabel,
   stringifyTraining,
   toggleBodyPart,
@@ -59,8 +62,9 @@ test('an incomplete day is in progress and is not judged', () => {
     complete: false,
     target: { kcal: 2600, protein: 140, carbs: 340, fat: 72 },
     intake: { kcal: 1824, protein: 90, carbs: 200, fat: 49.5 },
-  });
+  }, '2026-10-05');
   assert.equal(evaluation.complete, false);
+  assert.equal(evaluation.settled, false);
   assert.equal(statusLabel(evaluation.status), '進行中');
   assert.equal(macroBadgeLabel(evaluation, 'kcal'), '進行中');
   assert.equal(macroBadgeLabel(evaluation, 'protein'), '進行中');
@@ -111,8 +115,80 @@ test('a complete day passes when at least 3 macros pass', () => {
     complete: false,
     target,
     intake: { kcal: 100, protein: 100, carbs: 100, fat: 100 },
-  });
+  }, '2026-10-01');
   assert.equal(statusLabel(inProgress.status), '進行中');
+});
+
+test('a past incomplete day settles at Hong Kong midnight without a write', () => {
+  const open = {
+    date: '2026-11-27',
+    complete: false,
+    target: { kcal: 100, protein: 100, carbs: 100, fat: 100 },
+    intake: { kcal: 50, protein: 40, carbs: 40, fat: 80 },
+  };
+  assert.equal(statusLabel(evaluateDay(open, '2026-11-27').status), '進行中');
+  assert.equal(dietDot(open, '2026-11-27'), 'progress');
+
+  const settled = evaluateDay(open, '2026-11-28');
+  assert.equal(settled.complete, false);
+  assert.equal(settled.settled, true);
+  assert.equal(settled.passed, 1);
+  assert.equal(statusLabel(settled.status), '未達標');
+  assert.equal(macroBadgeLabel(settled, 'kcal'), '未達標');
+  assert.equal(dietDot(open, '2026-11-28'), 'fail');
+
+  const passing = evaluateDay({
+    ...open,
+    intake: { kcal: 100, protein: 100, carbs: 100, fat: 200 },
+  }, '2026-11-28');
+  assert.equal(passing.passed, 3);
+  assert.equal(statusLabel(passing.status), '達標');
+
+  const empty = evaluateDay({
+    date: '2026-11-13',
+    complete: false,
+    target: { kcal: 1993, protein: 119, carbs: 231, fat: 66 },
+    intake: {},
+  }, '2026-11-28');
+  assert.equal(empty.passed, 0);
+  assert.equal(statusLabel(empty.status), '未達標');
+
+  const kept = evaluateDay({
+    date: '2026-11-27',
+    complete: true,
+    target: { kcal: 100, protein: 100, carbs: 100, fat: 100 },
+    intake: { kcal: 100, protein: 100, carbs: 50, fat: 200 },
+  }, '2026-11-28');
+  assert.equal(kept.passed, 2);
+  assert.equal(statusLabel(kept.status), '未達標');
+});
+
+test('the current Hong Kong day stays in progress and yesterday settles by default', () => {
+  const today = hkToday();
+  const current = evaluateDay({
+    date: today,
+    complete: false,
+    target: { kcal: 100, protein: 100, carbs: 100, fat: 100 },
+    intake: { kcal: 100, protein: 100, carbs: 100, fat: 100 },
+  });
+  assert.equal(statusLabel(current.status), '進行中');
+
+  const yesterday = evaluateDay({
+    date: '2020-01-01',
+    complete: false,
+    target: { kcal: 100, protein: 100, carbs: 100, fat: 100 },
+    intake: { kcal: 0, protein: 0, carbs: 0, fat: 0 },
+  });
+  assert.equal(statusLabel(yesterday.status), '未達標');
+});
+
+test('Hong Kong midnight is 16:00 UTC', () => {
+  const before = new Date('2026-11-28T15:59:00.000Z');
+  assert.equal(hkToday(before), '2026-11-28');
+  assert.equal(msUntilNextHkMidnight(before), 60_000);
+  const midnight = new Date('2026-11-28T16:00:00.000Z');
+  assert.equal(hkToday(midnight), '2026-11-29');
+  assert.equal(msUntilNextHkMidnight(midnight), 24 * 60 * 60 * 1000);
 });
 
 test('2026-10-04 passes protein only', () => {
@@ -207,4 +283,34 @@ test('last 7 days ending 2026-10-05 summarise the seed data', () => {
   assert.ok(Math.abs(stats.avgIntake.kcal - 2564) < 0.001);
   assert.ok(Math.abs(stats.avgIntake.protein - 155.05) < 0.001);
   assert.ok(Math.abs(stats.avgTarget.carbs - 370) < 0.001);
+});
+
+test('a window counts past incomplete days and leaves the end date in progress', () => {
+  const days = [
+    {
+      date: '2026-11-26',
+      complete: false,
+      target: { kcal: 100, protein: 100, carbs: 100, fat: 100 },
+      intake: { kcal: 100, protein: 100, carbs: 100, fat: 200 },
+    },
+    {
+      date: '2026-11-27',
+      complete: false,
+      target: { kcal: 100, protein: 100, carbs: 100, fat: 100 },
+      intake: {},
+    },
+    {
+      date: '2026-11-28',
+      complete: false,
+      target: { kcal: 100, protein: 100, carbs: 100, fat: 100 },
+      intake: { kcal: 100, protein: 100, carbs: 100, fat: 100 },
+    },
+  ];
+  const stats = computeWindowStats(days, [], '2026-11-28', 7);
+  assert.equal(stats.completeCount, 2);
+  assert.equal(stats.progressCount, 1);
+  assert.equal(stats.hits.overall, 1);
+  assert.equal(stats.hits.kcal, 1);
+  assert.equal(stats.hits.fat, 0);
+  assert.equal(stats.avgIntake.kcal, 50);
 });

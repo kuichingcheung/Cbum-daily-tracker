@@ -13,6 +13,7 @@ import {
   formatNum,
   formatShortDate,
   hkToday,
+  msUntilNextHkMidnight,
   macroBadgeLabel,
   monthCells,
   monthTitle,
@@ -26,7 +27,7 @@ import {
 } from './logic.js';
 
 const STORAGE_KEY = 'cbum-tracker-settings';
-const DATA_CACHE = 'cbum-v2';
+const DATA_CACHE = 'cbum-v3';
 const DEFAULT_OWNER = 'kuichingcheung';
 const DEFAULT_REPO = 'Cbum-daily-tracker';
 const ROUTES = ['today', 'history', 'stats', 'settings'];
@@ -426,7 +427,29 @@ function renderSettings() {
     </section>`;
 }
 
+let renderedHkDate = hkToday();
+
+function refreshForHkDate() {
+  const today = hkToday();
+  if (today === renderedHkDate) return;
+  render();
+}
+
+function scheduleHkMidnightRefresh() {
+  const delay = msUntilNextHkMidnight();
+  window.setTimeout(() => {
+    const before = renderedHkDate;
+    refreshForHkDate();
+    if (hkToday() === before) {
+      window.setTimeout(scheduleHkMidnightRefresh, 1000);
+      return;
+    }
+    scheduleHkMidnightRefresh();
+  }, delay > 0 ? delay : 1000);
+}
+
 function render() {
+  renderedHkDate = hkToday();
   applyRoute();
   const titles = { today: '今日', history: '紀錄', stats: '統計', settings: '設定' };
   document.title = `${titles[state.route] || 'Road to Cbum'} · Road to Cbum`;
@@ -638,8 +661,14 @@ window.addEventListener('hashchange', () => {
 });
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').catch(() => {});
+  navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).catch(() => {});
 }
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') refreshForHkDate();
+});
+
+scheduleHkMidnightRefresh();
 
 applyRoute();
 loadAll();

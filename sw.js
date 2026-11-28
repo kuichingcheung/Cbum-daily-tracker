@@ -4,7 +4,7 @@
  * Offline reads use the last response that actually loaded.
  */
 
-const CACHE = 'cbum-v2';
+const CACHE = 'cbum-v3';
 const SHELL = [
   './',
   './index.html',

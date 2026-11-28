@@ -155,7 +155,7 @@ Token 只會存喺部手機嘅 `localStorage`，唔會 commit 入 repo。清除�
 - **統計**：近 7 日同近 30 日嘅達標日數、平均攝取 / 目標、訓練日數同部位次數，加埋體重走勢
 - **設定**：token、repo，同測試連線
 
-`complete: false` 嘅日子顯示 **進行中**，唔會判達標定未達標。至少三項達標先算全日達標。
+`complete: false` 而日期係香港時間今日，先顯示 **進行中**。香港時間一過嗰日（00:00），即使未撳完成、`complete` 仍然係 `false`，都會按規則判 **達標** 或 **未達標**。至少三項達標先算全日達標。
 
 ## 達標規則
 
@@ -208,7 +208,7 @@ Token 只會存喺部手機嘅 `localStorage`，唔會 commit 入 repo。清除�
 ```
 
 - `date`：`YYYY-MM-DD`（香港時間）
-- `complete`：`false` 代表當日仲未食完，App 顯示進行中
+- `complete`：`false` 代表當日仲未食完。香港時間當日顯示進行中；過咗 00:00 就會結算做達標或未達標
 - `target` / `intake`：`kcal`，以及 `protein`、`carbs`、`fat`（克）
 - `meals`：`time`、`name`、`items`、四項營養數字
 - `note`：當日備註，可留空字串

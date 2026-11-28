@@ -4,7 +4,7 @@
  * Offline reads use the last response that actually loaded.
  */
 
-const CACHE = 'cbum-v1';
+const CACHE = 'cbum-v2';
 const SHELL = [
   './',
   './index.html',
@@ -12,6 +12,8 @@ const SHELL = [
   './js/app.js',
   './js/logic.js',
   './js/github.js',
+  './js/config.js',
+  './js/diet.js',
   './manifest.webmanifest',
   './icons/icon-180.png',
   './icons/icon-192.png',

@@ -1,3 +1,4 @@
+import { loadDiet } from './diet.js';
 import { loadDataFile, saveTrainingDay, testConnection } from './github.js';
 import {
   BODY_PARTS,
@@ -25,7 +26,7 @@ import {
 } from './logic.js';
 
 const STORAGE_KEY = 'cbum-tracker-settings';
-const DATA_CACHE = 'cbum-v1';
+const DATA_CACHE = 'cbum-v2';
 const DEFAULT_OWNER = 'kuichingcheung';
 const DEFAULT_REPO = 'Cbum-daily-tracker';
 const ROUTES = ['today', 'history', 'stats', 'settings'];
@@ -238,7 +239,7 @@ function renderTraining(date) {
       <textarea data-note data-date="${date}" maxlength="200" placeholder="可加一句，例如推日">${esc(draft.note)}</textarea>
     </label>
     <button type="button" class="save" data-save data-date="${date}" ${saving ? 'disabled' : ''}>${saving ? '儲存緊…' : '儲存'}</button>
-    <p class="hint">飲食由教練更新。訓練要撳儲存，先會寫入 GitHub。</p>
+    <p class="hint">飲食由教練寫入資料庫。訓練要撳儲存，先會寫入 GitHub。</p>
   </section>`;
 }
 
@@ -404,7 +405,7 @@ function renderSettings() {
   return `${pageHead('設定', 'Token 只留喺呢部機')}
     <section class="card">
       <h2>GitHub 連線</h2>
-      <p class="hint">用 fine-grained token，只俾呢個 repo 嘅 Contents 讀寫。Token 存喺 localStorage，唔會寫入 repo。</p>
+      <p class="hint">飲食由伺服器讀取，唔使 token。呢粒 fine-grained token 只係用嚟寫訓練紀錄（Contents 讀寫）。Token 存喺 localStorage，唔會寫入 repo。</p>
       <label class="field">Fine-grained token
         <span class="token-row">
           <input id="token" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="github_pat_…" value="${esc(settings.token)}">
@@ -463,16 +464,16 @@ async function loadAll() {
   }
   try {
     const settings = loadSettings();
-    const [diet, training, weighins] = await Promise.all([
-      loadDataFile('diet.json', settings),
+    const [dietResult, training, weighins] = await Promise.all([
+      loadDiet({ settings, href: window.location.href }),
       loadDataFile('training.json', settings),
       loadDataFile('weighins.json', settings),
     ]);
-    state.diet = diet;
+    state.diet = dietResult.data;
     state.training = training;
     state.weighins = weighins;
     state.error = '';
-    rememberJson('diet.json', diet);
+    rememberJson('diet.json', dietResult.data);
     rememberJson('training.json', training);
     rememberJson('weighins.json', weighins);
   } catch {

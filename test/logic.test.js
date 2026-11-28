@@ -19,7 +19,13 @@ import {
 } from '../js/logic.js';
 
 const diet = JSON.parse(readFileSync(new URL('../data/diet.json', import.meta.url), 'utf8'));
-const training = JSON.parse(readFileSync(new URL('../data/training.json', import.meta.url), 'utf8'));
+
+const earlyTraining = {
+  days: [
+    { date: '2026-10-03', trained: true, parts: ['胸', '三頭'], note: '推日' },
+    { date: '2026-10-04', trained: true, parts: ['帶氧'], note: '斜坡行 30 分鐘' },
+  ],
+};
 
 function day(date) {
   return diet.days.find((item) => item.date === date);
@@ -47,8 +53,13 @@ test('2026-10-03 intake versus target matches the seed day', () => {
   assert.equal(statusLabel(evaluation.status), '未達標');
 });
 
-test('2026-10-05 is in progress and is not judged', () => {
-  const evaluation = evaluateDay(day('2026-10-05'));
+test('an incomplete day is in progress and is not judged', () => {
+  const evaluation = evaluateDay({
+    date: '2026-10-05',
+    complete: false,
+    target: { kcal: 2600, protein: 140, carbs: 340, fat: 72 },
+    intake: { kcal: 1824, protein: 90, carbs: 200, fat: 49.5 },
+  });
   assert.equal(evaluation.complete, false);
   assert.equal(statusLabel(evaluation.status), '進行中');
   assert.equal(macroBadgeLabel(evaluation, 'kcal'), '進行中');
@@ -124,7 +135,7 @@ test('October 2026 calendar starts on Sunday', () => {
 });
 
 test('merge replaces a day, appends a new one, and keeps date order', () => {
-  const merged = mergeTrainingDay(training, {
+  const merged = mergeTrainingDay(earlyTraining, {
     date: '2026-10-05',
     trained: true,
     parts: ['腿', '胸', '休息'],
@@ -175,7 +186,17 @@ test('body-part toggle treats 休息 as an off day', () => {
 });
 
 test('last 7 days ending 2026-10-05 summarise the seed data', () => {
-  const stats = computeWindowStats(diet.days, training.days, '2026-10-05', 7);
+  const seedDays = [
+    day('2026-10-03'),
+    day('2026-10-04'),
+    {
+      date: '2026-10-05',
+      complete: false,
+      target: { kcal: 2600, protein: 140, carbs: 340, fat: 72 },
+      intake: { kcal: 1824, protein: 90, carbs: 200, fat: 49.5 },
+    },
+  ];
+  const stats = computeWindowStats(seedDays, earlyTraining.days, '2026-10-05', 7);
   assert.equal(stats.completeCount, 2);
   assert.equal(stats.progressCount, 1);
   assert.deepEqual(stats.hits, { kcal: 1, protein: 2, carbs: 0, fat: 0, overall: 0 });
